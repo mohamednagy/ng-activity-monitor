@@ -1,6 +1,6 @@
 angular.module('ngMonitor', []).provider('ngMonitor', function(){
   this.idle = 20; // senconds
-  this.timeout = 5; // senconds
+  this.warning = 5; // senconds
   this.interval = 1; // senconds
   this.events = ['mousemove','keydown','DOMMouseScroll','mousewheel','mousedown','touchstart'];
 
@@ -13,9 +13,9 @@ angular.module('ngMonitor', []).provider('ngMonitor', function(){
       check: function(){
         var expiryTime = $cookies.get('ngMonitorExpiryTime');
         var currentTime = Math.trunc(new Date().getTime() / 1000);
-        var timeout = expiryTime - (_this.timeout);
-        if(timeout == currentTime){
-          $rootScope.$broadcast('timeout');
+        var warning = expiryTime - (_this.warning);
+        if(warning == currentTime){
+          $rootScope.$broadcast('warning');
         }
         if(expiryTime == currentTime){
           $rootScope.$broadcast('idle');

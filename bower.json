@@ -1,0 +1,15 @@
+{
+  "name": "ng-monitor",
+  "main": "ng-monitor.js",
+  "homepage": "https://github.com/mohamednagy/ng-monitor",
+  "authors": [
+    "Mohamed Nagy <mohamed.n.haleem@gmail.com>"
+  ],
+  "description": "service for angular 1.x for tracking user' DOM activities and fire a couple of events",
+  "keywords": [
+    "angular",
+    "idle",
+    "activies"
+  ],
+  "license": "MIT"
+}
