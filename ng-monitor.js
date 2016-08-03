@@ -2,6 +2,7 @@ angular.module('ngMonitor', []).provider('ngMonitor', function(){
   this.idle = 20; // senconds
   this.warning = 5; // senconds
   this.interval = 1; // senconds
+  this.timeout = 5; //seconds
   this.events = ['mousemove','keydown','DOMMouseScroll','mousewheel','mousedown','touchstart'];
 
   this.$get = function($rootScope, $window, $interval, $cookies){
@@ -13,12 +14,16 @@ angular.module('ngMonitor', []).provider('ngMonitor', function(){
       check: function(){
         var expiryTime = $cookies.get('ngMonitorExpiryTime');
         var currentTime = Math.trunc(new Date().getTime() / 1000);
-        var warning = expiryTime - (_this.warning);
+        var warning = parseInt(expiryTime) - parseInt(_this.warning);
+        var timeout = parseInt(expiryTime) + parseInt(_this.timeout);
         if(warning == currentTime){
           $rootScope.$broadcast('warning');
         }
         if(expiryTime == currentTime){
           $rootScope.$broadcast('idle');
+        }
+        if(timeout == currentTime){
+          $rootScope.$broadcast('timeout');
         }
       },
 
@@ -28,9 +33,8 @@ angular.module('ngMonitor', []).provider('ngMonitor', function(){
 
       resetMonitor: function(){
         _time = Math.trunc(new Date().getTime() / 1000);
-        $cookies.put('ngMonitorExpiryTime', _time + _this.idle);
+        $cookies.put('ngMonitorExpiryTime', parseInt(_time) + parseInt(_this.idle));
         $rootScope.$broadcast('domTouched');
-        console.log('reset timer');
       },
 
       stop: function(){
