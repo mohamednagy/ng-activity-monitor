@@ -7,6 +7,16 @@ A service for angular 1.x for monitoring users' Dom activities and detect the **
 ``` 
 bower install ng-activity-monitor
 ```
+## Configrations
+`ngMonitorProvider.idle = 20`:  a specifc time in seconds the use must exceed to consider him idle
+
+`ngMonitorProvider.warning = 10`:  a specfic time to warn the user when he approached the idle state
+`ngMonitorProvider.timeout = 10`:  a specific period after the user being idle
+
+## Events
+`idle`: fired when the user spent the idle time without any activities
+`warning`: fired when the user approched the idle state
+`timeout`: fired when the user exceeds the idle state by a configured time
 
 # Using
 Include the ngMonitor module
@@ -16,10 +26,9 @@ var app = angular.module('demo', ['ngMonitor']);
 set the configurations
 ```
 app.config(function(ngMonitorProvider){
-    // the user will be set as idle if he spent this period without any activities
     ngMonitorProvider.idle = 1800; 
-    // warn the user when he when he approached the idle state
     ngMonitorProvider.warning = 60;
+    ngMonitorProvider.timeout = 10;
 });
 ```
 Catching events
@@ -40,3 +49,4 @@ ng-activity-monitor  comes with some DOM events
 You can set your custom events
 ```
 ngMonitorProvider.events = ['click', 'mouseover'];
+```
