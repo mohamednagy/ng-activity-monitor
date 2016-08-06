@@ -9,12 +9,21 @@ bower install ng-activity-monitor
 ```
 ## Configrations
 `ngMonitorProvider.idle = 20`:  a specifc time in seconds the use must exceed to consider him idle
-
 `ngMonitorProvider.warning = 10`:  a specfic time to warn the user when he approached the idle state
 `ngMonitorProvider.timeout = 10`:  a specific period after the user being idle
 
+ng-activity-monitor  comes with some DOM events
+```
+['mousemove','keydown','DOMMouseScroll','mousewheel','mousedown','touchstart']
+```
+You can set your custom events
+```
+ngMonitorProvider.events = ['click', 'mouseover'];
+```
+
 ## Events
 `idle`: fired when the user spent the idle time without any activities
+
 `warning`: fired when the user approched the idle state
 `timeout`: fired when the user exceeds the idle state by a configured time
 
@@ -35,18 +44,13 @@ Catching events
 ```
 // start monitor
 ngMonitor.start();
+
 $rootScope.$on('warning', function(){
     // handle the warning state
 });
+
 $rootScope.$on('idle', function(){
     // handle the idle state
 });
 ```
-ng-activity-monitor  comes with some DOM events
-```
-['mousemove','keydown','DOMMouseScroll','mousewheel','mousedown','touchstart']
-```
-You can set your custom events
-```
-ngMonitorProvider.events = ['click', 'mouseover'];
-```
+
