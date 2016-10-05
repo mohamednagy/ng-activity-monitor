@@ -9,7 +9,7 @@ angular.module('ngMonitor', []).provider('ngMonitor', function(){
     var _this = this;
     var _intervalPromise = null;
     var _time = Math.trunc(new Date().getTime() / 1000);
-    cookies.put('ngMonitorExpiryTime', _time);
+    $cookies.put('ngMonitorExpiryTime', parseInt(_time) + parseInt(_this.idle));
     return {
       check: function(){
         var expiryTime = cookies.get('ngMonitorExpiryTime');
